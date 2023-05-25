@@ -1,3 +1,7 @@
+# react-pokedex
+
+Repo following Jack Herrington's [Indroduction to React](https://www.youtube.com/playlist?list=PLNqp92_EXZBKa1U7JbgUwBnDk3XzYDvXe) series.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
