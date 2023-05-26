@@ -13,6 +13,12 @@ body { color: #222; }
   border-bottom: 1px dashed #222;
 }
 
+input {
+  width: 100%;
+  font-size: x-large;
+  padding: 0.2em;
+}
+
 table {
   width: 100%;
 }
@@ -20,4 +26,12 @@ table {
 th {
   text-align: left;
   font-size: x-large;
+}
+
+.pokemon-info {
+  padding: 1rem;
+}
+
+.pokemon-stat {
+  text-align: right;
 }
