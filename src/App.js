@@ -23,7 +23,7 @@ PokemonRow.propTypes = {
   onSelect: PropTypes.func,
 };
 
-const PokemonInfo = ({ name, base }) => (
+const PokemonInfo = ({ name, base, onClose }) => (
   <div className="pokemon-info">
     <h1>{name.english}</h1>
     <table>
@@ -36,6 +36,9 @@ const PokemonInfo = ({ name, base }) => (
         ))}
       </tbody>
     </table>
+    <button className="close-pokemon-info" onClick={() => onClose()}>
+      Close
+    </button>
   </div>
 );
 
@@ -99,7 +102,12 @@ function App() {
             </tbody>
           </table>
         </div>
-        {selectedItem && <PokemonInfo {...selectedItem} />}
+        {selectedItem && (
+          <PokemonInfo
+            {...selectedItem}
+            onClose={() => selectedItemSet(null)}
+          />
+        )}
       </div>
     </div>
   );

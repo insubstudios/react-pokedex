@@ -35,3 +35,8 @@ th {
 .pokemon-stat {
   text-align: right;
 }
+
+.close-pokemon-info {
+  margin-top: 0.5rem;
+  float: right;
+}
