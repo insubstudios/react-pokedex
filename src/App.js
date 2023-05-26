@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
+import { Button } from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
 import "./App.css";
 
 const PokemonRow = ({ pokemon, onSelect }) => (
@@ -8,7 +10,13 @@ const PokemonRow = ({ pokemon, onSelect }) => (
     <td>{pokemon.name.english}</td>
     <td>{pokemon.type.join(", ")}</td>
     <td>
-      <button onClick={() => onSelect(pokemon)}>Select</button>
+      <Button
+        size="small"
+        variant="contained"
+        onClick={() => onSelect(pokemon)}
+      >
+        Select
+      </Button>
     </td>
   </tr>
 );
@@ -24,9 +32,9 @@ PokemonRow.propTypes = {
 };
 
 const PokemonInfo = ({ name, base, onClose }) => {
-  const ClosePokemonInfoBtn = styled.button`
+  const ClosePokemonInfoBtn = styled.div`
     margin-top: 0.5rem;
-    float: right;
+    text-align: right;
   `;
 
   return (
@@ -42,7 +50,17 @@ const PokemonInfo = ({ name, base, onClose }) => {
           ))}
         </tbody>
       </table>
-      <ClosePokemonInfoBtn onClick={() => onClose()}>Close</ClosePokemonInfoBtn>
+      <ClosePokemonInfoBtn>
+        <Button
+          style={{ flex: 1 }}
+          variant="contained"
+          size="small"
+          startIcon={<CancelIcon />}
+          onClick={() => onClose()}
+        >
+          Close
+        </Button>
+      </ClosePokemonInfoBtn>
     </div>
   );
 };
@@ -61,17 +79,18 @@ PokemonInfo.propTypes = {
   }),
 };
 
-const Title = styled.h1`
-  text-align: center;
-  margin-top: 0;
-  border-bottom: 1px dashed #222;
-`;
-
 const Container = styled.div`
   background: #fee;
   width: 80vw;
   margin: 1rem auto;
-  padding: 1rem;
+  padding: 0.25rem 1rem 1.25rem;
+  border-radius: 0.5rem;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  margin-top: 0;
+  border-bottom: 1px dashed #222;
 `;
 
 const ResultsPage = styled.div`
@@ -84,6 +103,8 @@ const FilterInput = styled.input`
   width: 100%;
   font-size: x-large;
   padding: 0.2em;
+  border: 1px solid #555;
+  border-radius: 0.25rem;
 `;
 
 function App() {
