@@ -1,13 +1,16 @@
+body { color: #222; }
 
 .page {
   background: #fee;
   width: 80vw;
-  margin: auto;
-  paddint-top: 1rem;
+  margin: 1rem auto;
+  padding: 1rem;
 }
 
 .title {
   text-align: center;
+  margin-top: 0;
+  border-bottom: 1px dashed #222;
 }
 
 table {
