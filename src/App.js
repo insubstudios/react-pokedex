@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "@emotion/styled";
 import "./App.css";
 
 const PokemonRow = ({ pokemon, onSelect }) => (
@@ -22,24 +23,29 @@ PokemonRow.propTypes = {
   onSelect: PropTypes.func,
 };
 
-const PokemonInfo = ({ name, base, onClose }) => (
-  <div className="pokemon-info">
-    <h1>{name.english}</h1>
-    <table>
-      <tbody>
-        {Object.keys(base).map((key) => (
-          <tr key={key}>
-            <td>{key}</td>
-            <td className="pokemon-stat">{base[key]}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-    <button className="close-pokemon-info" onClick={() => onClose()}>
-      Close
-    </button>
-  </div>
-);
+const PokemonInfo = ({ name, base, onClose }) => {
+  const ClosePokemonInfoBtn = styled.button`
+    margin-top: 0.5rem;
+    float: right;
+  `;
+
+  return (
+    <div className="pokemon-info">
+      <h1>{name.english}</h1>
+      <table>
+        <tbody>
+          {Object.keys(base).map((key) => (
+            <tr key={key}>
+              <td>{key}</td>
+              <td className="pokemon-stat">{base[key]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <ClosePokemonInfoBtn onClick={() => onClose()}>Close</ClosePokemonInfoBtn>
+    </div>
+  );
+};
 
 PokemonInfo.propTypes = {
   name: PropTypes.shape({
@@ -55,6 +61,31 @@ PokemonInfo.propTypes = {
   }),
 };
 
+const Title = styled.h1`
+  text-align: center;
+  margin-top: 0;
+  border-bottom: 1px dashed #222;
+`;
+
+const Container = styled.div`
+  background: #fee;
+  width: 80vw;
+  margin: 1rem auto;
+  padding: 1rem;
+`;
+
+const ResultsPage = styled.div`
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-column-gap: 1rem;
+`;
+
+const FilterInput = styled.input`
+  width: 100%;
+  font-size: x-large;
+  padding: 0.2em;
+`;
+
 function App() {
   const [filter, filterSet] = React.useState("");
   const [pokemon, pokemonSet] = React.useState([]);
@@ -68,18 +99,12 @@ function App() {
   }, []);
 
   return (
-    <div className="page">
-      <h1 className="title">Pokemon Search</h1>
+    <Container>
+      <Title>Pokemon Search</Title>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "70% 30%",
-          gridColumnGap: "1rem",
-        }}
-      >
+      <ResultsPage>
         <div>
-          <input
+          <FilterInput
             value={filter}
             onChange={(evt) => filterSet(evt.target.value)}
           />
@@ -115,8 +140,8 @@ function App() {
             onClose={() => selectedItemSet(null)}
           />
         )}
-      </div>
-    </div>
+      </ResultsPage>
+    </Container>
   );
 }
 

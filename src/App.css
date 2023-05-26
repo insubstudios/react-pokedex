@@ -1,23 +1,5 @@
 body { color: #222; }
 
-.page {
-  background: #fee;
-  width: 80vw;
-  margin: 1rem auto;
-  padding: 1rem;
-}
-
-.title {
-  text-align: center;
-  margin-top: 0;
-  border-bottom: 1px dashed #222;
-}
-
-input {
-  width: 100%;
-  font-size: x-large;
-  padding: 0.2em;
-}
 
 table {
   width: 100%;
