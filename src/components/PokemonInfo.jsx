@@ -1,25 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 import PokemonType from "../PokemonType";
+import PokemonContext from "../PokemonContext";
 
-const PokemonInfo = ({ name, base, onClose }) => {
+const PokemonInfo = () => {
+  const { selectedPokemon, selectedPokemonSet }  = useContext(PokemonContext);
+
   const ClosePokemonInfoBtn = styled.div`
     margin-top: 0.5rem;
     text-align: right;
   `;
 
-  return (
+  return selectedPokemon ? (
     <div className="pokemon-info">
-      <h1>{name.english}</h1>
+      <h1>{selectedPokemon.name.english}</h1>
       <table>
         <tbody>
-          {Object.keys(base).map((key) => (
+          {Object.keys(selectedPokemon.base).map((key) => (
             <tr key={key}>
               <td>{key}</td>
-              <td className="pokemon-stat">{base[key]}</td>
+              <td className="pokemon-stat">{selectedPokemon.base[key]}</td>
             </tr>
           ))}
         </tbody>
@@ -30,13 +33,13 @@ const PokemonInfo = ({ name, base, onClose }) => {
           variant="contained"
           size="small"
           startIcon={<CancelIcon />}
-          onClick={() => onClose()}
+          onClick={() => selectedPokemonSet(null)}
         >
           Close
         </Button>
       </ClosePokemonInfoBtn>
     </div>
-  );
+  ) : null;
 };
 
 PokemonInfo.propTypes = PokemonType;

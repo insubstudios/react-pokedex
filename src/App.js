@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import "./App.css";
 
-// import PokemonContext from "./PokemonContext";
+import PokemonContext from "./PokemonContext";
 import PokemonInfo from "./components/PokemonInfo";
 import PokemonFilter from "./components/PokemonFilter";
 import PokemonTable from "./components/PokemonTable";
@@ -40,25 +40,27 @@ function App() {
   }, []);
 
   return (
-    <Container>
-      <Title>Pokemon Search</Title>
-      <ResultsPage>
-        <div>
-          <PokemonFilter filter={filter} filterSet={filterSet} />
-          <PokemonTable
-            filter={filter}
-            pokemon={pokemon}
-            selectedPokemonSet={selectedPokemonSet}
-          />
-        </div>
-        {selectedPokemon && (
-          <PokemonInfo
-            {...selectedPokemon}
-            onClose={() => selectedPokemonSet(null)}
-          />
-        )}
-      </ResultsPage>
-    </Container>
+    <PokemonContext.Provider
+      value={{
+        filter,
+        pokemon,
+        selectedPokemon,
+        filterSet,
+        pokemonSet,
+        selectedPokemonSet,
+      }}
+    >
+      <Container>
+        <Title>Pokemon Search</Title>
+        <ResultsPage>
+          <div>
+            <PokemonFilter />
+            <PokemonTable />
+          </div>
+          <PokemonInfo />
+        </ResultsPage>
+      </Container>
+    </PokemonContext.Provider>
   );
 }
 
