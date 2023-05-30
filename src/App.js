@@ -113,7 +113,7 @@ function App() {
   const [selectedItem, selectedItemSet] = React.useState("");
 
   React.useEffect(() => {
-    const url = "http://localhost:3000/react-pokedex/pokemon.json";
+    const url = "/react-pokedex/pokemon.json";
     fetch(url)
       .then((resp) => resp.json())
       .then((data) => pokemonSet(data));
