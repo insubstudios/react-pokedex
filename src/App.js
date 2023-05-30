@@ -1,83 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { Button } from "@mui/material";
-import CancelIcon from "@mui/icons-material/Cancel";
 import "./App.css";
 
-const PokemonRow = ({ pokemon, onSelect }) => (
-  <tr>
-    <td>{pokemon.name.english}</td>
-    <td>{pokemon.type.join(", ")}</td>
-    <td>
-      <Button
-        size="small"
-        variant="contained"
-        onClick={() => onSelect(pokemon)}
-      >
-        Select
-      </Button>
-    </td>
-  </tr>
-);
-
-PokemonRow.propTypes = {
-  pokemon: PropTypes.shape({
-    name: PropTypes.shape({
-      english: PropTypes.string,
-    }),
-    type: PropTypes.arrayOf(PropTypes.string),
-  }),
-  onSelect: PropTypes.func,
-};
-
-const PokemonInfo = ({ name, base, onClose }) => {
-  const ClosePokemonInfoBtn = styled.div`
-    margin-top: 0.5rem;
-    text-align: right;
-  `;
-
-  return (
-    <div className="pokemon-info">
-      <h1>{name.english}</h1>
-      <table>
-        <tbody>
-          {Object.keys(base).map((key) => (
-            <tr key={key}>
-              <td>{key}</td>
-              <td className="pokemon-stat">{base[key]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <ClosePokemonInfoBtn>
-        <Button
-          style={{ flex: 1 }}
-          variant="contained"
-          size="small"
-          startIcon={<CancelIcon />}
-          onClick={() => onClose()}
-        >
-          Close
-        </Button>
-      </ClosePokemonInfoBtn>
-    </div>
-  );
-};
-
-PokemonInfo.propTypes = {
-  name: PropTypes.shape({
-    english: PropTypes.string,
-  }),
-  base: PropTypes.shape({
-    HP: PropTypes.number.isRequired,
-    Attack: PropTypes.number.isRequired,
-    Defense: PropTypes.number.isRequired,
-    "Sp. Attack": PropTypes.number.isRequired,
-    "Sp. Defense": PropTypes.number.isRequired,
-    Speed: PropTypes.number.isRequired,
-  }),
-};
+// import PokemonContext from "./PokemonContext";
+import PokemonInfo from "./components/PokemonInfo";
+import PokemonFilter from "./components/PokemonFilter";
+import PokemonTable from "./components/PokemonTable";
 
 const Container = styled.div`
   background: #fee;
@@ -99,18 +27,10 @@ const ResultsPage = styled.div`
   grid-column-gap: 1rem;
 `;
 
-const FilterInput = styled.input`
-  width: 100%;
-  font-size: x-large;
-  padding: 0.2em;
-  border: 1px solid #555;
-  border-radius: 0.25rem;
-`;
-
 function App() {
   const [filter, filterSet] = React.useState("");
   const [pokemon, pokemonSet] = React.useState([]);
-  const [selectedItem, selectedItemSet] = React.useState("");
+  const [selectedPokemon, selectedPokemonSet] = React.useState("");
 
   React.useEffect(() => {
     const url = "/react-pokedex/pokemon.json";
@@ -122,43 +42,19 @@ function App() {
   return (
     <Container>
       <Title>Pokemon Search</Title>
-
       <ResultsPage>
         <div>
-          <FilterInput
-            value={filter}
-            onChange={(evt) => filterSet(evt.target.value)}
+          <PokemonFilter filter={filter} filterSet={filterSet} />
+          <PokemonTable
+            filter={filter}
+            pokemon={pokemon}
+            selectedPokemonSet={selectedPokemonSet}
           />
-
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Type</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pokemon
-                .filter((pokemon) =>
-                  pokemon.name.english
-                    .toLowerCase()
-                    .includes(filter.toLowerCase())
-                )
-                .slice(0, 20)
-                .map((pokemon) => (
-                  <PokemonRow
-                    pokemon={pokemon}
-                    onSelect={(pokemon) => selectedItemSet(pokemon)}
-                    key={pokemon.id}
-                  />
-                ))}
-            </tbody>
-          </table>
         </div>
-        {selectedItem && (
+        {selectedPokemon && (
           <PokemonInfo
-            {...selectedItem}
-            onClose={() => selectedItemSet(null)}
+            {...selectedPokemon}
+            onClose={() => selectedPokemonSet(null)}
           />
         )}
       </ResultsPage>
