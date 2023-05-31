@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 // import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 
+import useStore from "../store";
 // import PokemonType from "../PokemonType";
 
 const PokemonRow = ({ pokemon }) => {
-  const dispatch = useDispatch();
+  const setSelectedPokemon = useStore((state) => state.setSelectedPokemon);
 
   return (
     <tr>
@@ -16,10 +16,7 @@ const PokemonRow = ({ pokemon }) => {
         <Button
           size="small"
           variant="contained"
-          onClick={() => dispatch({
-            type: "SET_SELECTED_POKEMON",
-            payload: pokemon,
-          })}
+          onClick={() => setSelectedPokemon(pokemon)}
         >
           Select
         </Button>

@@ -1,14 +1,14 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 
+import useStore from "../store";
 // import PokemonType from "../PokemonType";
 
 const PokemonInfo = () => {
-  const dispatch = useDispatch();
-  const selectedPokemon = useSelector((state) => state.selectedPokemon);
+  const selectedPokemon = useStore((state) => state.selectedPokemon);
+  const setSelectedPokemon = useStore((state) => state.setSelectedPokemon);
 
   const ClosePokemonInfoBtn = styled.div`
     margin-top: 0.5rem;
@@ -34,10 +34,7 @@ const PokemonInfo = () => {
           variant="contained"
           size="small"
           startIcon={<CancelIcon />}
-          onClick={() => dispatch({
-            type: "SET_SELECTED_POKEMON",
-            payload: null,
-          })}
+          onClick={() => setSelectedPokemon(null)}
         >
           Close
         </Button>

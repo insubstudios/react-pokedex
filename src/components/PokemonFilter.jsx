@@ -1,6 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "@emotion/styled";
+import styled from "@emotion/styled"
+import useStore from "../store";
 
 const FilterInput = styled.input`
   width: 100%;
@@ -11,8 +11,8 @@ const FilterInput = styled.input`
 `;
 
 const PokemonFilter = () => {
-  const dispatch = useDispatch();
-  const filter = useSelector((state) => state.filter);
+  const setFilter = useStore((state) => state.setFilter);
+  const filter = useStore((state) => state.filter);
   
   return (
     <>
@@ -20,10 +20,7 @@ const PokemonFilter = () => {
       <FilterInput
         type="text"
         value={filter}
-        onChange={(evt) => dispatch({
-          type: "SET_FILTER",
-          payload: evt.target.value,
-        })}
+        onChange={(evt) => setFilter(evt.target.value)}
       />
     </>
   );
