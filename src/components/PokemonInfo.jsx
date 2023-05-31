@@ -3,11 +3,14 @@ import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-import PokemonType from "../PokemonType";
+// import PokemonType from "../PokemonType";
 import PokemonContext from "../PokemonContext";
 
 const PokemonInfo = () => {
-  const { selectedPokemon, selectedPokemonSet }  = useContext(PokemonContext);
+  const {
+    state: { selectedPokemon },
+    dispatch,
+  }  = useContext(PokemonContext);
 
   const ClosePokemonInfoBtn = styled.div`
     margin-top: 0.5rem;
@@ -33,7 +36,10 @@ const PokemonInfo = () => {
           variant="contained"
           size="small"
           startIcon={<CancelIcon />}
-          onClick={() => selectedPokemonSet(null)}
+          onClick={() => dispatch({
+            type: "SET_SELECTED_POKEMON",
+            payload: null,
+          })}
         >
           Close
         </Button>
@@ -42,6 +48,6 @@ const PokemonInfo = () => {
   ) : null;
 };
 
-PokemonInfo.propTypes = PokemonType;
+// PokemonInfo.propTypes = PokemonType;
 
 export default PokemonInfo;

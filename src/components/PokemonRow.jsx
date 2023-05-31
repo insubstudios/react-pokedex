@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 
-import PokemonType from "../PokemonType";
+// import PokemonType from "../PokemonType";
 import PokemonContext from "../PokemonContext";
 
 const PokemonRow = ({ pokemon }) => {
-  const { selectedPokemonSet } = useContext(PokemonContext);
+  const { dispatch } = useContext(PokemonContext);
 
   return (
     <tr>
@@ -16,7 +16,10 @@ const PokemonRow = ({ pokemon }) => {
         <Button
           size="small"
           variant="contained"
-          onClick={() => selectedPokemonSet(pokemon)}
+          onClick={() => dispatch({
+            type: "SET_SELECTED_POKEMON",
+            payload: pokemon,
+          })}
         >
           Select
         </Button>
@@ -25,8 +28,8 @@ const PokemonRow = ({ pokemon }) => {
   );
 };
 
-PokemonRow.propTypes = {
-  pokemon: PropTypes.arrayOf(PokemonType),
-};
+// PokemonRow.propTypes = {
+//   pokemon: PropTypes.arrayOf(PokemonType),
+// };
 
 export default PokemonRow;
