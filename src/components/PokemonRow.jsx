@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 // import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 
 // import PokemonType from "../PokemonType";
-import PokemonContext from "../PokemonContext";
 
 const PokemonRow = ({ pokemon }) => {
-  const { dispatch } = useContext(PokemonContext);
+  const dispatch = useDispatch();
 
   return (
     <tr>

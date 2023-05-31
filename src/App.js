@@ -1,13 +1,21 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { createStore } from "redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import "./App.css";
 
-import PokemonContext from "./PokemonContext";
 import PokemonInfo from "./components/PokemonInfo";
 import PokemonFilter from "./components/PokemonFilter";
 import PokemonTable from "./components/PokemonTable";
 
-const pokemonReducer = (state, action) => {
+const pokemonReducer = (
+  state = {
+    pokemon: [],
+    filter: "",
+    selectedPokemon: null,
+  },
+  action
+) => {
   switch (action.type) {
     case "SET_POKEMON":
       return {
@@ -25,9 +33,11 @@ const pokemonReducer = (state, action) => {
         selectedPokemon: action.payload,
       };
     default:
-      throw new Error("No action");
+      return state;
   }
 };
+
+const store = createStore(pokemonReducer);
 
 const Container = styled.div`
   background: #fee;
@@ -50,11 +60,8 @@ const ResultsPage = styled.div`
 `;
 
 function App() {
-  const [state, dispatch] = React.useReducer(pokemonReducer, {
-    pokemon: [],
-    filter: "",
-    selectedPokemon: null,
-  });
+  const dispatch = useDispatch();
+  const pokemon = useSelector((state) => state.pokemon);
 
   React.useEffect(() => {
     const url = "/react-pokedex/pokemon.json";
@@ -68,29 +75,28 @@ function App() {
       );
   }, []);
 
-  // if (!state.pokemon) {
-  //   return <div>LOADING...</div>;
-  // }
+  if (!pokemon) {
+    return <div>LOADING...</div>;
+  }
 
   return (
-    <PokemonContext.Provider
-      value={{
-        state,
-        dispatch,
-      }}
-    >
-      <Container>
-        <Title>Pokemon Search</Title>
-        <ResultsPage>
-          <div>
-            <PokemonFilter />
-            <PokemonTable />
-          </div>
-          <PokemonInfo />
-        </ResultsPage>
-      </Container>
-    </PokemonContext.Provider>
+    <Container>
+      <Title>Pokemon Search</Title>
+      <ResultsPage>
+        <div>
+          <PokemonFilter />
+          <PokemonTable />
+        </div>
+        <PokemonInfo />
+      </ResultsPage>
+    </Container>
   );
 }
 
-export default App;
+const WrappedApp = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+export default WrappedApp;

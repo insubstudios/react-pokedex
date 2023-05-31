@@ -1,16 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 // import PokemonType from "../PokemonType";
-import PokemonContext from "../PokemonContext";
 
 const PokemonInfo = () => {
-  const {
-    state: { selectedPokemon },
-    dispatch,
-  }  = useContext(PokemonContext);
+  const dispatch = useDispatch();
+  const selectedPokemon = useSelector((state) => state.selectedPokemon);
 
   const ClosePokemonInfoBtn = styled.div`
     margin-top: 0.5rem;
