@@ -2,28 +2,26 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { observer } from "mobx-react";
 
-import useStore from "../store";
+import store from "../store";
 import PokemonType from "../PokemonType";
 
 const PokemonInfo = () => {
-  const selectedPokemon = useStore((state) => state.selectedPokemon);
-  const setSelectedPokemon = useStore((state) => state.setSelectedPokemon);
-
   const ClosePokemonInfoBtn = styled.div`
     margin-top: 0.5rem;
     text-align: right;
   `;
 
-  return selectedPokemon ? (
+  return store.selectedPokemon ? (
     <div className="pokemon-info">
-      <h1>{selectedPokemon.name.english}</h1>
+      <h1>{store.selectedPokemon.name.english}</h1>
       <table>
         <tbody>
-          {Object.keys(selectedPokemon.base).map((key) => (
+          {Object.keys(store.selectedPokemon.base).map((key) => (
             <tr key={key}>
               <td>{key}</td>
-              <td className="pokemon-stat">{selectedPokemon.base[key]}</td>
+              <td className="pokemon-stat">{store.selectedPokemon.base[key]}</td>
             </tr>
           ))}
         </tbody>
@@ -34,7 +32,7 @@ const PokemonInfo = () => {
           variant="contained"
           size="small"
           startIcon={<CancelIcon />}
-          onClick={() => setSelectedPokemon(null)}
+          onClick={() => store.setSelectedPokemon(null)}
         >
           Close
         </Button>
@@ -47,4 +45,4 @@ PokemonInfo.propTypes = {
   pokemon: PokemonType,
 };
 
-export default PokemonInfo;
+export default observer(PokemonInfo);

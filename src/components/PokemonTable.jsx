@@ -1,12 +1,10 @@
 import React from "react";
+import { observer } from "mobx-react";
 
-import useStore from "../store";
+import store from "../store";
 import PokemonRow from "./PokemonRow";
 
 const PokemonTable = () => {
-  const pokemon = useStore((state) => state.pokemon);
-  const filter = useStore((state) => state.filter);
-
   return (
     <table>
     <thead>
@@ -16,11 +14,11 @@ const PokemonTable = () => {
       </tr>
     </thead>
     <tbody>
-      {pokemon
+      {store.pokemon
         .filter((pokemon) =>
           pokemon.name.english
             .toLowerCase()
-            .includes(filter.toLowerCase())
+            .includes(store.filter.toLowerCase())
         )
         .slice(0, 20)
         .map((pokemon) => (
@@ -34,4 +32,4 @@ const PokemonTable = () => {
   );
 };
 
-export default PokemonTable;
+export default observer(PokemonTable);

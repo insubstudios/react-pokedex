@@ -1,12 +1,11 @@
 import React from "react";
 import { Button } from "@mui/material";
+import { observer } from "mobx-react";
 
-import useStore from "../store";
+import store from "../store";
 import PokemonType from "../PokemonType";
 
 const PokemonRow = ({ pokemon }) => {
-  const setSelectedPokemon = useStore((state) => state.setSelectedPokemon);
-
   return (
     <tr>
       <td>{pokemon.name.english}</td>
@@ -15,7 +14,7 @@ const PokemonRow = ({ pokemon }) => {
         <Button
           size="small"
           variant="contained"
-          onClick={() => setSelectedPokemon(pokemon)}
+          onClick={() => store.setSelectedPokemon(pokemon)}
         >
           Select
         </Button>
@@ -28,4 +27,4 @@ PokemonRow.propTypes = {
   pokemon: PokemonType,
 };
 
-export default PokemonRow;
+export default observer(PokemonRow);
