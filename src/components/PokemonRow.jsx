@@ -1,9 +1,8 @@
 import React from "react";
-// import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 
 import useStore from "../store";
-// import PokemonType from "../PokemonType";
+import PokemonType from "../PokemonType";
 
 const PokemonRow = ({ pokemon }) => {
   const setSelectedPokemon = useStore((state) => state.setSelectedPokemon);
@@ -25,8 +24,8 @@ const PokemonRow = ({ pokemon }) => {
   );
 };
 
-// PokemonRow.propTypes = {
-//   pokemon: PropTypes.arrayOf(PokemonType),
-// };
+PokemonRow.propTypes = {
+  pokemon: PokemonType,
+};
 
 export default PokemonRow;

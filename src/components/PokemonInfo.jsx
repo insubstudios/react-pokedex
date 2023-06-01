@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 import useStore from "../store";
-// import PokemonType from "../PokemonType";
+import PokemonType from "../PokemonType";
 
 const PokemonInfo = () => {
   const selectedPokemon = useStore((state) => state.selectedPokemon);
@@ -43,6 +43,8 @@ const PokemonInfo = () => {
   ) : null;
 };
 
-// PokemonInfo.propTypes = PokemonType;
+PokemonInfo.propTypes = {
+  pokemon: PokemonType,
+};
 
 export default PokemonInfo;
