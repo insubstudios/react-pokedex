@@ -1,4 +1,4 @@
-import { makeObservable, observable, computed } from "mobx";
+import { makeObservable, observable, computed, action } from "mobx";
 
 class Store {
   pokemon = [];
@@ -11,6 +11,9 @@ class Store {
       filter: observable,
       selectedPokemon: observable,
       filteredPokemon: computed,
+      setPokemon: action,
+      setFilter: action,
+      setSelectedPokemon: action,
     });
   }
 

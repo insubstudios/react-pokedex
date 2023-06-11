@@ -6,6 +6,10 @@ import PokemonInfo from "./components/PokemonInfo";
 import PokemonFilter from "./components/PokemonFilter";
 import PokemonTable from "./components/PokemonTable";
 
+if (typeof window !== "undefined") {
+  console.log("your in a client!");
+}
+
 const Container = styled.div`
   background: #fee;
   width: 80vw;
